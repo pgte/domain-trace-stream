@@ -1,0 +1,24 @@
+{
+  "name": "domain-trace-stream",
+  "version": "0.0.1",
+  "description": "Domain IO Tracing",
+  "scripts": {
+    "test": "node tests/http_client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pgte/io-stats.git"
+  },
+  "dependencies": {
+    "domain-observer": "*"
+  },
+  "devDependencies": {
+    "tap": "*"
+  },
+  "keywords": [
+    "IO",
+    "statistics"
+  ],
+  "author": "pgte",
+  "license": "MIT"
+}
