@@ -75,3 +75,30 @@ test('emits http-client-response-begin', function(t) {
     });
   });
 });
+
+test('emits http-client-response-end', function(t) {
+  t.plan(8);
+
+  var s = S();
+  var d = domain.create();
+
+  s.on('readable', function() {
+    var event = s.read();
+    if (event && event.event == 'http-client-response-end') {
+      t.type(event.time, 'number');
+      t.ok(event.timeDiff >= 0);
+      t.equal(event.method, 'GET');
+      t.equal(event.path, '/search.json?q=nodejs');
+      t.equal(event.host, 'search.twitter.com');
+      t.type(event.headers, 'object');
+      t.type(event.bytesRead, 'number');
+      t.ok(event.bytesRead > 0);
+    }
+  });
+
+  d.run(function() {
+    http.get('http://search.twitter.com/search.json?q=nodejs', function(res) {
+      res.resume();
+    });
+  });
+});

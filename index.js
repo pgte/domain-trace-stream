@@ -6,7 +6,7 @@ var events = [
   'http-client-request-begin'
 , 'http-client-request-end'
 , 'http-client-response-begin'
-// , 'http-client-response-end'
+, 'http-client-response-end'
 // , 'http-server-request-begin'
 // , 'http-server-request-end'
 // , 'http-server-response-end'
