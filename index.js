@@ -5,7 +5,7 @@ var Stream = require('./stream');
 var events = [
   'http-client-request-begin'
 , 'http-client-request-end'
-// , 'http-client-response-begin'
+, 'http-client-response-begin'
 // , 'http-client-response-end'
 // , 'http-server-request-begin'
 // , 'http-server-request-end'
