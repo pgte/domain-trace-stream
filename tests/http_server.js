@@ -8,7 +8,7 @@ function randomPort() {
 }
 
 test('emits http-server-request-begin', function(t) {
-  t.plan(6);
+  t.plan(7);
 
   var server = http.createServer();
   server.on('request', function(req, res) {
@@ -34,6 +34,7 @@ test('emits http-server-request-begin', function(t) {
       t.equal(event.path, '/abcdef?abc=def');
       t.equal(event.host, 'localhost:' + port);
       t.type(event.headers, 'object');
+      t.type(event.trace_id, 'string');
     }
   });
 
@@ -49,7 +50,7 @@ test('emits http-server-request-begin', function(t) {
 });
 
 test('emits http-server-request-end', function(t) {
-  t.plan(8);
+  t.plan(9);
 
   var server = http.createServer();
   server.on('request', function(req, res) {
@@ -77,6 +78,7 @@ test('emits http-server-request-end', function(t) {
       t.type(event.headers, 'object');
       t.type(event.bytesRead, 'number');
       t.ok(event.bytesRead > 0);
+      t.type(event.trace_id, 'string');
     }
   });
 
@@ -92,7 +94,7 @@ test('emits http-server-request-end', function(t) {
 });
 
 test('emits http-server-response-end', function(t) {
-  t.plan(7);
+  t.plan(8);
 
   var server = http.createServer();
   server.on('request', function(req, res) {
@@ -119,6 +121,7 @@ test('emits http-server-response-end', function(t) {
       t.equal(event.host, 'localhost:' + port);
       t.type(event.headers, 'object');
       t.strictEqual(event.statusCode, 200);
+      t.type(event.trace_id, 'string');
     }
   });
 

@@ -6,6 +6,7 @@ function listener(res, time, timeDiff) {
 
   return {
     event: 'http-client-response-end',
+    trace_id: req.domain._id,
     time: time,
     timeDiff: timeDiff,
     headers: res.headers,
