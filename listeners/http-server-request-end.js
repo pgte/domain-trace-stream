@@ -2,7 +2,6 @@
 
 module.exports =
 function listener(res, time, timeDiff) {
-  var req = res.req;
   return {
     event: 'http-server-request-end',
     time: time,

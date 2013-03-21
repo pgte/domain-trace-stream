@@ -9,7 +9,7 @@ var events = [
 , 'http-client-response-end'
 , 'http-server-request-begin'
 , 'http-server-request-end'
-// , 'http-server-response-end'
+, 'http-server-response-end'
 ];
 
 var listeners = {};

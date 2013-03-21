@@ -48,8 +48,8 @@ test('emits http-server-request-begin', function(t) {
   });
 });
 
-test('emits http-server-request-end', function(t) {
-  t.plan(8);
+test('emits http-server-response-end', function(t) {
+  t.plan(7);
 
   var server = http.createServer();
   server.on('request', function(req, res) {
@@ -68,15 +68,14 @@ test('emits http-server-request-end', function(t) {
 
   s.on('readable', function() {
     var event = s.read();
-    if (event && event.event == 'http-server-request-end') {
+    if (event && event.event == 'http-server-response-end') {
       t.type(event.time, 'number');
       t.ok(event.timeDiff >= 0);
       t.equal(event.method, 'GET');
       t.equal(event.path, '/abcdef?abc=def');
       t.equal(event.host, 'localhost:' + port);
       t.type(event.headers, 'object');
-      t.type(event.bytesRead, 'number');
-      t.ok(event.bytesRead > 0);
+      t.strictEqual(event.statusCode, 200);
     }
   });
 

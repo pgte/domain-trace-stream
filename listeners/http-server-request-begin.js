@@ -2,6 +2,8 @@
 
 module.exports =
 function listener(req, time, timeDiff) {
+  req.__res = req.socket._httpMessage;
+  req.__res.__req = req;
   return {
     event: 'http-server-request-begin',
     time: time,
