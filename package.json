@@ -1,6 +1,6 @@
 {
   "name": "domain-trace-stream",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Domain IO Tracing",
   "scripts": {
     "test": "node tests/http_client.js"
