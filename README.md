@@ -1,4 +1,4 @@
-# domain-trace-stream
+# domain-trace-stream [![Build Status](https://secure.travis-ci.org/pgte/domain-trace-stream.png)](http://travis-ci.org/pgte/domain-trace-stream)
 
 Provides an event stream with all the interesting IO events.
 
