@@ -2,7 +2,6 @@
 
 module.exports =
 function listener(res, time, timeDiff) {
-  console.log('res.statusCode:', res.statusCode);
   var req = res.__req;
   return {
     event: 'http-server-response-end',

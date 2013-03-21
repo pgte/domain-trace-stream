@@ -1,15 +1,15 @@
 /// http-server-request-end
 
 module.exports =
-function listener(res, time, timeDiff) {
+function listener(req, time, timeDiff) {
   return {
     event: 'http-server-request-end',
     time: time,
     timeDiff: timeDiff,
-    method: res.method,
-    path: res.url,
-    headers: res.headers,
-    host: res.headers.host,
-    bytesRead: res.client.bytesRead
+    method: req.method,
+    path: req.url,
+    headers: req.headers,
+    host: req.headers.host,
+    bytesRead: req.client.bytesRead
   };
 };
