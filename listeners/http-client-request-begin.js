@@ -10,6 +10,6 @@ function listener(req, time, timeDiff) {
     method: req.method,
     path: req.path,
     headers: req._headers,
-    host: req._headers.host,
+    host: req._headers.host
   };
 };
