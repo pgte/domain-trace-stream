@@ -8,7 +8,7 @@ var events = [
 , 'http-client-response-begin'
 , 'http-client-response-end'
 , 'http-server-request-begin'
-// , 'http-server-request-end'
+, 'http-server-request-end'
 // , 'http-server-response-end'
 ];
 
