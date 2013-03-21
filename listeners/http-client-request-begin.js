@@ -8,6 +8,7 @@ function listener(req, time, timeDiff) {
     timeDiff: timeDiff,
     method: req.method,
     path: req.path,
+    headers: req._headers,
     host: req._headers.host,
   };
 };

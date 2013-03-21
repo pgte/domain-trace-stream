@@ -3,8 +3,20 @@ var http = require('http');
 var domain = require('domain');
 var S = require('..');
 
+function randomPort() {
+  return Math.ceil(Math.random() * 8000) + 1024;
+}
+
 test('emits http-client-request-begin', function(t) {
-  t.plan(5);
+  t.plan(6);
+
+  var server = http.createServer();
+  server.on('request', function(req, res) {
+    req.resume();
+    res.end('Hey');
+  });
+  var port = randomPort();
+  server.listen(port);
 
   var s = S();
   var d = domain.create();
@@ -15,20 +27,36 @@ test('emits http-client-request-begin', function(t) {
       t.type(event.time, 'number');
       t.strictEqual(event.timeDiff, 0);
       t.equal(event.method, 'GET');
-      t.equal(event.path, '/search.json?q=nodejs');
-      t.equal(event.host, 'search.twitter.com')
+      t.equal(event.path, '/abcdef?abc=def');
+      t.equal(event.host, 'localhost:' + port);
+      t.type(event.headers, 'object');
     }
   });
 
-  d.run(function() {
-    http.get('http://search.twitter.com/search.json?q=nodejs', function(res) {
-      res.resume();
+  server.once('listening', function(err) {
+    if (err) throw err;
+    d.run(function() {
+      http.get('http://localhost:' + port + '/abcdef?abc=def', function(res) {
+        res.resume();
+        res.once('end', function() {
+          server.close();
+        });
+      });
     });
   });
+
 });
 
 test('emits http-client-request-end', function(t) {
   t.plan(5);
+
+  var server = http.createServer();
+  server.on('request', function(req, res) {
+    req.resume();
+    res.end('Hey');
+  });
+  var port = randomPort();
+  server.listen(port);
 
   var s = S();
   var d = domain.create();
@@ -39,20 +67,33 @@ test('emits http-client-request-end', function(t) {
       t.type(event.time, 'number');
       t.ok(event.timeDiff >= 0);
       t.equal(event.method, 'GET');
-      t.equal(event.path, '/search.json?q=nodejs');
-      t.equal(event.host, 'search.twitter.com')
+      t.equal(event.path, '/ghi?klm=123');
+      t.equal(event.host, 'localhost:' + port)
     }
   });
 
-  d.run(function() {
-    http.get('http://search.twitter.com/search.json?q=nodejs', function(res) {
-      res.resume();
+  server.once('listening', function() {
+    d.run(function() {
+      http.get('http://localhost:' + port + '/ghi?klm=123', function(res) {
+        res.resume();
+        res.once('end', function() {
+          server.close();
+        });
+      });
     });
   });
 });
 
 test('emits http-client-response-begin', function(t) {
   t.plan(6);
+
+  var server = http.createServer();
+  server.on('request', function(req, res) {
+    req.resume();
+    res.end('Hey');
+  });
+  var port = randomPort();
+  server.listen(port);
 
   var s = S();
   var d = domain.create();
@@ -63,21 +104,34 @@ test('emits http-client-response-begin', function(t) {
       t.type(event.time, 'number');
       t.ok(event.timeDiff >= 0);
       t.equal(event.method, 'GET');
-      t.equal(event.path, '/search.json?q=nodejs');
-      t.equal(event.host, 'search.twitter.com');
+      t.equal(event.path, '/jdbsakjdbsa?abc=ddd');
+      t.equal(event.host, 'localhost:' + port);
       t.type(event.headers, 'object');
     }
   });
 
-  d.run(function() {
-    http.get('http://search.twitter.com/search.json?q=nodejs', function(res) {
-      res.resume();
+  server.once('listening', function() {
+    d.run(function() {
+      http.get('http://localhost:' + port + '/jdbsakjdbsa?abc=ddd', function(res) {
+        res.resume();
+        res.once('end', function() {
+          server.close();
+        });
+      });
     });
   });
 });
 
 test('emits http-client-response-end', function(t) {
   t.plan(8);
+
+  var server = http.createServer();
+  server.on('request', function(req, res) {
+    req.resume();
+    res.end('Hey');
+  });
+  var port = randomPort();
+  server.listen(port);
 
   var s = S();
   var d = domain.create();
@@ -88,17 +142,22 @@ test('emits http-client-response-end', function(t) {
       t.type(event.time, 'number');
       t.ok(event.timeDiff >= 0);
       t.equal(event.method, 'GET');
-      t.equal(event.path, '/search.json?q=nodejs');
-      t.equal(event.host, 'search.twitter.com');
+      t.equal(event.path, '/adljaldkj?lawjheqwe=3213');
+      t.equal(event.host, 'localhost:' + port);
       t.type(event.headers, 'object');
       t.type(event.bytesRead, 'number');
       t.ok(event.bytesRead > 0);
     }
   });
 
-  d.run(function() {
-    http.get('http://search.twitter.com/search.json?q=nodejs', function(res) {
-      res.resume();
+  server.once('listening', function() {
+    d.run(function() {
+      http.get('http://localhost:' + port + '/adljaldkj?lawjheqwe=3213', function(res) {
+        res.resume();
+        res.once('end', function() {
+          server.close();
+        });
+      });
     });
   });
 });
