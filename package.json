@@ -10,7 +10,8 @@
     "url": "git@github.com:pgte/io-stats.git"
   },
   "dependencies": {
-    "domain-observer": "*"
+    "domain-observer": "*",
+    "domain-id": "*"
   },
   "devDependencies": {
     "tap": "*"

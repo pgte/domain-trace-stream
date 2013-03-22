@@ -1,4 +1,5 @@
 var domains = require('domain-observer');
+require('domain-id');
 var Options = require('./options');
 var Stream = require('./stream');
 
